@@ -49,12 +49,12 @@ namespace HomeWorkDetective
             string nationality;
             Console.WriteLine("Поиск человека");
             Console.Write("Укажите рост: ");
-            growth = GetInputNumber();
+            growth = ValidationNumber();
 
             if (growth != 0)
             {
                 Console.Write("Укажите вес: ");
-                weight = GetInputNumber();
+                weight = ValidationNumber();
 
                 if (weight != 0)
                 {
@@ -87,7 +87,7 @@ namespace HomeWorkDetective
             }            
         }
 
-        private int GetInputNumber()
+        private int ValidationNumber()
         {
             int maxLength = 3;
             bool isNumber = int.TryParse(Console.ReadLine(), out int inputNumber);
