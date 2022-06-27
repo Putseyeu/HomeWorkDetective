@@ -63,14 +63,20 @@ namespace HomeWorkDetective
 
                     if (nationality != null)
                     {
-                        var filteredCriminal = _criminals.Where(criminal => criminal.InCustody == false 
-                        && criminal.Growth == growth 
-                        || criminal.Weight == weight 
-                        || criminal.Nationality == nationality);
-
-                        foreach (var criminal in filteredCriminal)
+                        var filteredCriminal = _criminals.Where(criminal => criminal.InCustody == false && criminal.Growth == growth 
+                        || criminal.InCustody == false && criminal.Weight == weight 
+                        || criminal.InCustody == false && criminal.Nationality == nationality);
+                      
+                        if (filteredCriminal.Count () <= 0)
                         {
-                            criminal.ShowInfo();
+                            Console.WriteLine("Нету совпадений по параметрам");
+                        }
+                        else
+                        {
+                            foreach (var criminal in filteredCriminal)
+                            {
+                                criminal.ShowInfo();
+                            }
                         }
                     }
                 }
@@ -78,7 +84,7 @@ namespace HomeWorkDetective
             else
             {
                 Console.WriteLine("Введены не коректные данные");
-            }
+            }            
         }
 
         private int GetInputNumber()
