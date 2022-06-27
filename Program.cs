@@ -10,7 +10,7 @@ namespace HomeWorkDetective
     {
         static void Main(string[] args)
         {
-            DataBase dataBase = new DataBase();
+            Database dataBase = new Database();
             bool isWork = true;
             Console.WriteLine("Программа для поиска преступников.");
 
@@ -33,11 +33,11 @@ namespace HomeWorkDetective
         }
     }
 
-    class DataBase
+    class Database
     {
         private List<Criminal> _criminals = new List<Criminal>();
 
-        public DataBase()
+        public Database()
         {
             CreateList();
         }
@@ -63,18 +63,14 @@ namespace HomeWorkDetective
 
                     if (nationality != null)
                     {
-                        var filteredCriminal = from Criminal criminal in _criminals
-                                               where criminal.Growth == growth
-                                               || criminal.Weight == weight
-                                               || criminal.Nationality.ToUpper() == nationality.ToUpper()
-                                               select criminal;
+                        var filteredCriminal = _criminals.Where(criminal => criminal.InCustody == false 
+                        && criminal.Growth == growth 
+                        || criminal.Weight == weight 
+                        || criminal.Nationality == nationality);
 
                         foreach (var criminal in filteredCriminal)
                         {
-                            if(criminal.InCustody == false)
-                            {
-                                criminal.ShowInfo();
-                            }                           
+                            criminal.ShowInfo();
                         }
                     }
                 }
@@ -82,7 +78,7 @@ namespace HomeWorkDetective
             else
             {
                 Console.WriteLine("Введены не коректные данные");
-            }           
+            }
         }
 
         private int GetInputNumber()
