@@ -10,7 +10,7 @@ namespace HomeWorkDetective
     {
         static void Main(string[] args)
         {
-            Database dataBase = new Database();
+            Database database = new Database();
             bool isWork = true;
             Console.WriteLine("Программа для поиска преступников.");
 
@@ -22,7 +22,7 @@ namespace HomeWorkDetective
                 switch (userInput)
                 {
                     case "1":
-                        dataBase.SearchPeople();
+                        database.SearchPeople();
                         break;
 
                     case "2":
@@ -49,12 +49,12 @@ namespace HomeWorkDetective
             string nationality;
             Console.WriteLine("Поиск человека");
             Console.Write("Укажите рост: ");
-            growth = ValidationNumber();
+            growth = GetPositiveNumber();
 
             if (growth != 0)
             {
                 Console.Write("Укажите вес: ");
-                weight = ValidationNumber();
+                weight = GetPositiveNumber();
 
                 if (weight != 0)
                 {
@@ -63,11 +63,11 @@ namespace HomeWorkDetective
 
                     if (nationality != null)
                     {
-                        var filteredCriminal = _criminals.Where(criminal => criminal.InCustody == false && criminal.Growth == growth 
-                        || criminal.InCustody == false && criminal.Weight == weight 
-                        || criminal.InCustody == false && criminal.Nationality == nationality);
-                      
-                        if (filteredCriminal.Count () <= 0)
+                        var filteredCriminal = _criminals.Where(criminal => criminal.InCustody == false && criminal.Growth == growth
+                         && criminal.Weight == weight
+                         && criminal.Nationality == nationality);
+
+                        if (filteredCriminal.Count() <= 0)
                         {
                             Console.WriteLine("Нету совпадений по параметрам");
                         }
@@ -84,10 +84,10 @@ namespace HomeWorkDetective
             else
             {
                 Console.WriteLine("Введены не коректные данные");
-            }            
+            }
         }
 
-        private int ValidationNumber()
+        private int GetPositiveNumber()
         {
             int maxLength = 3;
             bool isNumber = int.TryParse(Console.ReadLine(), out int inputNumber);
